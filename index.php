@@ -19,7 +19,9 @@
 
     foreach($results as $key => $result) {
         $page = file_get_contents($result['link']);
-        $results[$key]['details'] = getDetails($page);
+        foreach(getDetails($page) as $k=>$page) {
+            $results[$key][$k] = $page;
+        }
     }
 
     return $results;
@@ -71,7 +73,7 @@
  $maxPage = getMaxPage();
  $data = [];
  for($i = 0; $i < $maxPage; $i++) {
-    $data[] = array_merge($data, startParsing($i));
+    $data = array_merge($data, startParsing($i));
  }
  echo '<pre>';
  print_r($data);
